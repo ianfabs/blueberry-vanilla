@@ -19,6 +19,9 @@ class Component extends HTMLElement{
         this.shadowRoot.appendChild(style);
         this.shadowRoot.appendChild(this.context);
     }
+    toString(){
+        return this.innerHTML;
+    }
 }
 
 export default Component;

@@ -3,13 +3,17 @@
 //Stylesheets
 import './css/main.css';
 //Components/WC Defs
-import HelloWorld from './components/HelloWorld.wc.js';
-import Card from './components/Card.wc.js';
-import NavBar from './components/NavBar.wc.js';
+import HelloWorld from './src/components/HelloWorld.wc.js';
+import Card from './src/components/Card.wc.js';
+import NavBar from './src/components/NavBar.wc.js';
+import Router from './src/components/Router/Router.wc.js';
+
+//Pages
+import { Home, About } from "./src/pages";
 
 //Globals
-const root = (html = ``) => {
-    const app = document.querySelector("#app");
+const root = (selector) => {
+    const app = document.querySelector(selector);
     
     return {
         append(el:Element){
@@ -18,15 +22,20 @@ const root = (html = ``) => {
         afix(el:string){
             app.innerHTML += el;
         },
-        render(){
+        render(html = ``){
             app.innerHTML = html;
-        }
+        },
+        el: app
     }
 }
 //Define all elements
 customElements.define('hello-world', HelloWorld);
 customElements.define('blue-card', Card);
 customElements.define('blue-nav', NavBar);
+customElements.define('blue-router', Router);
+//define pages
+customElements.define('blue-page-home', Home);
+customElements.define('blue-page-about', About);
 
 //Different methods for "rendering" that I came up with
 //This is the pure javascript implementation, which prevents the
@@ -39,7 +48,10 @@ customElements.define('blue-nav', NavBar);
 
 //The all new render method!
 
-root(`
+root("#app").render(`
     <blue-nav></blue-nav>
-    <blue-card></blue-card>
-`).render();
+`);
+root("#app").append(new Router({
+    '/' : `<blue-page-home></blue-page-home>`,
+    '/about' : `<blue-page-about></blue-page-home>`
+}));

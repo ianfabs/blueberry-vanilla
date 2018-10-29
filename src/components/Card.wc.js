@@ -50,6 +50,8 @@ class Card extends Component{
                 </footer>
             </article>
         `);
+
+        return null;
     }
 }
 

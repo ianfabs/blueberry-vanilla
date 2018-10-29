@@ -176,7 +176,7 @@ var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"C:/Users/001416358/AppData/Roaming/npm/node_modules/parcel/src/builtins/css-loader.js"}],"components/HelloWorld.wc.js":[function(require,module,exports) {
+},{"_css_loader":"C:/Users/001416358/AppData/Roaming/npm/node_modules/parcel/src/builtins/css-loader.js"}],"src/components/HelloWorld.wc.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -243,7 +243,7 @@ function (_HTMLElement) {
 
 var _default = HelloWorld;
 exports.default = _default;
-},{}],"lib/Component.js":[function(require,module,exports) {
+},{}],"src/lib/Component.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -317,6 +317,11 @@ function (_HTMLElement) {
       this.shadowRoot.appendChild(style);
       this.shadowRoot.appendChild(this.context);
     }
+  }, {
+    key: "toString",
+    value: function toString() {
+      return this.innerHTML;
+    }
   }]);
 
   return Component;
@@ -324,7 +329,7 @@ function (_HTMLElement) {
 
 var _default = Component;
 exports.default = _default;
-},{}],"components/Card.wc.js":[function(require,module,exports) {
+},{}],"src/components/Card.wc.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -370,7 +375,7 @@ function (_Component) {
 
     _this.render("\n            <article>\n                <hgroup>\n                    <h1>".concat(title || "Title", "</h1>\n                    <h2>").concat(subtitle || "Subtitle", "</h2>\n                </hgroup>\n                <main>\n                    <p>\n                        This is the main content of the card. Pretty neat, right?\n                    </p>\n                </main>\n                <footer>\n                    <small>Author @ianfabs</small>\n                </footer>\n            </article>\n        "));
 
-    return _this;
+    return _possibleConstructorReturn(_this, null);
   }
 
   return Card;
@@ -378,7 +383,7 @@ function (_Component) {
 
 var _default = Card;
 exports.default = _default;
-},{"../lib/Component":"lib/Component.js"}],"components/NavBar.wc.js":[function(require,module,exports) {
+},{"../lib/Component":"src/lib/Component.js"}],"src/components/NavBar.wc.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -391,6 +396,18 @@ var _Component2 = _interopRequireDefault(require("../lib/Component"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n            nav{\n                display: flex;\n                border: 1px solid black;\n                padding: 1vh 0.5vw;\n                margin: 0;\n                justify-content: space-between;\n            }\n            .nav-link-group{\n                display: flex;\n                flex-direction: row;\n                justify-content: space-between;\n                align-self: flex-end;\n                margin: auto 5px;\n            }\n            .nav-link-group > *{\n                margin: auto 1vw;\n            }\n        "]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -416,9 +433,9 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(NavBar).call(this));
 
-    _this.css("\n            nav{\n                display: grid;\n                grid-template-columns: 10vw 70vw 20vw;\n                border: 1px solid black;\n                padding: 1vh 0.5vw;\n                margin: 0;\n            }\n            .nav-link-group{\n                display: flex;\n                flex-direction: row;\n                justify-content: space-around;\n            }\n            .nav-link-group{\n\n            }\n        ");
+    _this.css(_templateObject());
 
-    _this.render("\n            <nav>\n                <a href=\"#\">Company</a>\n                <span>&nbsp;</span>\n                <section class='nav-link-group'>\n                    <a>Login</a>\n                    <a>Signup</a>\n                </section>\n            </nav>\n        ");
+    _this.render("\n            <nav>\n                <a href=\"/\">Company</a>\n                <span>&nbsp;</span>\n                <section class='nav-link-group'>\n                    <a href=\"/about\">About</a>\n                    <span>|</span>\n                    <a>Login</a>\n                    <a>Signup</a>\n                </section>\n            </nav>\n        ");
 
     return _this;
   }
@@ -428,7 +445,181 @@ function (_Component) {
 
 var _default = NavBar;
 exports.default = _default;
-},{"../lib/Component":"lib/Component.js"}],"index.ts":[function(require,module,exports) {
+},{"../lib/Component":"src/lib/Component.js"}],"src/components/Router/Router.wc.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _Component2 = _interopRequireDefault(require("../../lib/Component"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Router =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(Router, _Component);
+
+  function Router(routes) {
+    var _this;
+
+    _classCallCheck(this, Router);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Router).call(this));
+
+    _this.css();
+
+    _this.render(routes[window.location.pathname]);
+
+    return _this;
+  }
+
+  return Router;
+}(_Component2.default);
+
+var _default = Router;
+exports.default = _default;
+},{"../../lib/Component":"src/lib/Component.js"}],"src/pages/Home.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _Component2 = _interopRequireDefault(require("../lib/Component"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Home =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(Home, _Component);
+
+  function Home() {
+    var _this;
+
+    _classCallCheck(this, Home);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Home).call(this));
+
+    _this.css("\n        .flex{\n            display: flex;\n            justify-content: center;\n        }\n        ");
+
+    _this.render("\n        <div class='flex'>\n            <h1>Hello there, my name is Ian Fabs</h1>\n        </div>\n        ");
+
+    return _this;
+  }
+
+  return Home;
+}(_Component2.default);
+
+var _default = Home;
+exports.default = _default;
+},{"../lib/Component":"src/lib/Component.js"}],"src/pages/About.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _Component2 = _interopRequireDefault(require("../lib/Component"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var About =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(About, _Component);
+
+  function About() {
+    var _this;
+
+    _classCallCheck(this, About);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(About).call(this));
+
+    _this.css("\n        .flex{\n            display: flex;\n            justify-content: center;\n        }\n        ");
+
+    _this.render("\n        <div class='flex'>\n            <h1>and I'm in love with nicole balzano</h1>\n        </div>\n        ");
+
+    return _this;
+  }
+
+  return About;
+}(_Component2.default);
+
+var _default = About;
+exports.default = _default;
+},{"../lib/Component":"src/lib/Component.js"}],"src/pages/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "Home", {
+  enumerable: true,
+  get: function () {
+    return _Home.default;
+  }
+});
+Object.defineProperty(exports, "About", {
+  enumerable: true,
+  get: function () {
+    return _About.default;
+  }
+});
+
+var _Home = _interopRequireDefault(require("./Home"));
+
+var _About = _interopRequireDefault(require("./About"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+},{"./Home":"src/pages/Home.js","./About":"src/pages/About.js"}],"index.ts":[function(require,module,exports) {
 "use strict"; //Node Modules
 
 var __importDefault = this && this.__importDefault || function (mod) {
@@ -442,19 +633,20 @@ exports.__esModule = true; //Stylesheets
 require("./css/main.css"); //Components/WC Defs
 
 
-var HelloWorld_wc_js_1 = __importDefault(require("./components/HelloWorld.wc.js"));
+var HelloWorld_wc_js_1 = __importDefault(require("./src/components/HelloWorld.wc.js"));
 
-var Card_wc_js_1 = __importDefault(require("./components/Card.wc.js"));
+var Card_wc_js_1 = __importDefault(require("./src/components/Card.wc.js"));
 
-var NavBar_wc_js_1 = __importDefault(require("./components/NavBar.wc.js")); //Globals
+var NavBar_wc_js_1 = __importDefault(require("./src/components/NavBar.wc.js"));
+
+var Router_wc_js_1 = __importDefault(require("./src/components/Router/Router.wc.js")); //Pages
 
 
-var root = function root(html) {
-  if (html === void 0) {
-    html = "";
-  }
+var pages_1 = require("./src/pages"); //Globals
 
-  var app = document.querySelector("#app");
+
+var root = function root(selector) {
+  var app = document.querySelector(selector);
   return {
     append: function append(el) {
       app.appendChild(el);
@@ -462,16 +654,25 @@ var root = function root(html) {
     afix: function afix(el) {
       app.innerHTML += el;
     },
-    render: function render() {
+    render: function render(html) {
+      if (html === void 0) {
+        html = "";
+      }
+
       app.innerHTML = html;
-    }
+    },
+    el: app
   };
 }; //Define all elements
 
 
 customElements.define('hello-world', HelloWorld_wc_js_1["default"]);
 customElements.define('blue-card', Card_wc_js_1["default"]);
-customElements.define('blue-nav', NavBar_wc_js_1["default"]); //Different methods for "rendering" that I came up with
+customElements.define('blue-nav', NavBar_wc_js_1["default"]);
+customElements.define('blue-router', Router_wc_js_1["default"]); //define pages
+
+customElements.define('blue-page-home', pages_1.Home);
+customElements.define('blue-page-about', pages_1.About); //Different methods for "rendering" that I came up with
 //This is the pure javascript implementation, which prevents the
 //  need for /direct/ DOM manipulation. But, methinks this is lack the
 //  ability to specify attributes
@@ -480,8 +681,12 @@ customElements.define('blue-nav', NavBar_wc_js_1["default"]); //Different method
 //root().afix(`<blue-card></blue-card>`);
 //The all new render method!
 
-root("\n    <blue-nav></blue-nav>\n    <blue-card></blue-card>\n").render();
-},{"./css/main.css":"css/main.css","./components/HelloWorld.wc.js":"components/HelloWorld.wc.js","./components/Card.wc.js":"components/Card.wc.js","./components/NavBar.wc.js":"components/NavBar.wc.js"}],"C:/Users/001416358/AppData/Roaming/npm/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+root("#app").render("\n    <blue-nav></blue-nav>\n");
+root("#app").append(new Router_wc_js_1["default"]({
+  '/': "<blue-page-home></blue-page-home>",
+  '/about': "<blue-page-about></blue-page-home>"
+}));
+},{"./css/main.css":"css/main.css","./src/components/HelloWorld.wc.js":"src/components/HelloWorld.wc.js","./src/components/Card.wc.js":"src/components/Card.wc.js","./src/components/NavBar.wc.js":"src/components/NavBar.wc.js","./src/components/Router/Router.wc.js":"src/components/Router/Router.wc.js","./src/pages":"src/pages/index.js"}],"C:/Users/001416358/AppData/Roaming/npm/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
