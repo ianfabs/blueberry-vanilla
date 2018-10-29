@@ -317,11 +317,6 @@ function (_HTMLElement) {
       this.shadowRoot.appendChild(style);
       this.shadowRoot.appendChild(this.context);
     }
-  }, {
-    key: "toString",
-    value: function toString() {
-      return this.innerHTML;
-    }
   }]);
 
   return Component;
@@ -397,6 +392,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n            <nav>\n                <a href=\"/\">Company</a>\n                <span>&nbsp;</span>\n                <section class='nav-link-group'>\n                    <a href=\"/about\">About</a>\n                    <span>|</span>\n                    <a>Login</a>\n                    <a>Signup</a>\n                </section>\n            </nav>\n        "]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
 function _templateObject() {
   var data = _taggedTemplateLiteral(["\n            nav{\n                display: flex;\n                border: 1px solid black;\n                padding: 1vh 0.5vw;\n                margin: 0;\n                justify-content: space-between;\n            }\n            .nav-link-group{\n                display: flex;\n                flex-direction: row;\n                justify-content: space-between;\n                align-self: flex-end;\n                margin: auto 5px;\n            }\n            .nav-link-group > *{\n                margin: auto 1vw;\n            }\n        "]);
 
@@ -435,7 +440,7 @@ function (_Component) {
 
     _this.css(_templateObject());
 
-    _this.render("\n            <nav>\n                <a href=\"/\">Company</a>\n                <span>&nbsp;</span>\n                <section class='nav-link-group'>\n                    <a href=\"/about\">About</a>\n                    <span>|</span>\n                    <a>Login</a>\n                    <a>Signup</a>\n                </section>\n            </nav>\n        ");
+    _this.render(_templateObject2());
 
     return _this;
   }

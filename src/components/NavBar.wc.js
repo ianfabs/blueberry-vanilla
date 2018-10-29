@@ -24,7 +24,7 @@ class NavBar extends Component{
             }
         `;
 
-        this.render(`
+        this.render`
             <nav>
                 <a href="/">Company</a>
                 <span>&nbsp;</span>
@@ -35,7 +35,7 @@ class NavBar extends Component{
                     <a>Signup</a>
                 </section>
             </nav>
-        `);
+        `;
     }
 }
 
