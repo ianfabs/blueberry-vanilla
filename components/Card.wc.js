@@ -3,7 +3,9 @@ import Component from '../lib/Component';
 class Card extends Component{
     constructor(){
         super();
-
+        //retrieve attributes
+        const title = this.getAttribute("title");
+        const subtitle = this.getAttribute("subtitle");
         this.css(`
             article{
                 border: 1px solid black;
@@ -35,8 +37,8 @@ class Card extends Component{
         this.render(`
             <article>
                 <hgroup>
-                    <h1>Title</h1>
-                    <h2>Subtitle</h2>
+                    <h1>${title || "Title"}</h1>
+                    <h2>${subtitle || "Subtitle"}</h2>
                 </hgroup>
                 <main>
                     <p>

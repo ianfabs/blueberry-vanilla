@@ -104,7 +104,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   // Override the current require with this new one
   return newRequire;
-})({"../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+})({"C:/Users/001416358/AppData/Roaming/npm/node_modules/parcel/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -136,7 +136,7 @@ function getBaseURL(url) {
 
 exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
-},{}],"../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+},{}],"C:/Users/001416358/AppData/Roaming/npm/node_modules/parcel/src/builtins/css-loader.js":[function(require,module,exports) {
 var bundle = require('./bundle-url');
 
 function updateLink(link) {
@@ -171,12 +171,12 @@ function reloadCSS() {
 }
 
 module.exports = reloadCSS;
-},{"./bundle-url":"../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"css/main.css":[function(require,module,exports) {
+},{"./bundle-url":"C:/Users/001416358/AppData/Roaming/npm/node_modules/parcel/src/builtins/bundle-url.js"}],"css/main.css":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/css-loader.js"}],"components/HelloWorld.wc.js":[function(require,module,exports) {
+},{"_css_loader":"C:/Users/001416358/AppData/Roaming/npm/node_modules/parcel/src/builtins/css-loader.js"}],"components/HelloWorld.wc.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -360,11 +360,15 @@ function (_Component) {
 
     _classCallCheck(this, Card);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(Card).call(this));
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(Card).call(this)); //retrieve attributes
+
+    var title = _this.getAttribute("title");
+
+    var subtitle = _this.getAttribute("subtitle");
 
     _this.css("\n            article{\n                border: 1px solid black;\n                padding: 1vh 2vw;\n            }\n            h1,h2{\n                line-height: 10px;\n            }\n            h1{\n                font-size: 1.5em;\n            }\n            h2{\n                font-size: 1em;\n            }\n            article>hgroup{\n                border-bottom: 1px solid #3c3c3c;\n                padding-bottom: 1vh;\n            }\n            article>main{\n                margin: 8vh 0;\n            }\n            article>footer{\n                text-align: center;\n                border-top: 1px solid #3c3c3c;\n                padding-top: 1vh;\n            }\n        ");
 
-    _this.render("\n            <article>\n                <hgroup>\n                    <h1>Title</h1>\n                    <h2>Subtitle</h2>\n                </hgroup>\n                <main>\n                    <p>\n                        This is the main content of the card. Pretty neat, right?\n                    </p>\n                </main>\n                <footer>\n                    <small>Author @ianfabs</small>\n                </footer>\n            </article>\n        ");
+    _this.render("\n            <article>\n                <hgroup>\n                    <h1>".concat(title || "Title", "</h1>\n                    <h2>").concat(subtitle || "Subtitle", "</h2>\n                </hgroup>\n                <main>\n                    <p>\n                        This is the main content of the card. Pretty neat, right?\n                    </p>\n                </main>\n                <footer>\n                    <small>Author @ianfabs</small>\n                </footer>\n            </article>\n        "));
 
     return _this;
   }
@@ -425,7 +429,7 @@ function (_Component) {
 var _default = NavBar;
 exports.default = _default;
 },{"../lib/Component":"lib/Component.js"}],"index.ts":[function(require,module,exports) {
-"use strict";
+"use strict"; //Node Modules
 
 var __importDefault = this && this.__importDefault || function (mod) {
   return mod && mod.__esModule ? mod : {
@@ -445,7 +449,11 @@ var Card_wc_js_1 = __importDefault(require("./components/Card.wc.js"));
 var NavBar_wc_js_1 = __importDefault(require("./components/NavBar.wc.js")); //Globals
 
 
-var root = function root() {
+var root = function root(html) {
+  if (html === void 0) {
+    html = "";
+  }
+
   var app = document.querySelector("#app");
   return {
     append: function append(el) {
@@ -453,16 +461,27 @@ var root = function root() {
     },
     afix: function afix(el) {
       app.innerHTML += el;
+    },
+    render: function render() {
+      app.innerHTML = html;
     }
   };
-};
+}; //Define all elements
+
 
 customElements.define('hello-world', HelloWorld_wc_js_1["default"]);
 customElements.define('blue-card', Card_wc_js_1["default"]);
-customElements.define('blue-nav', NavBar_wc_js_1["default"]);
-root().afix("<blue-nav></blue-nav>");
-root().afix("<blue-card></blue-card>");
-},{"./css/main.css":"css/main.css","./components/HelloWorld.wc.js":"components/HelloWorld.wc.js","./components/Card.wc.js":"components/Card.wc.js","./components/NavBar.wc.js":"components/NavBar.wc.js"}],"../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+customElements.define('blue-nav', NavBar_wc_js_1["default"]); //Different methods for "rendering" that I came up with
+//This is the pure javascript implementation, which prevents the
+//  need for /direct/ DOM manipulation. But, methinks this is lack the
+//  ability to specify attributes
+//root().append(new NavBar);
+//This method uses innerHTML, and the += concatenation operation to append the element
+//root().afix(`<blue-card></blue-card>`);
+//The all new render method!
+
+root("\n    <blue-nav></blue-nav>\n    <blue-card></blue-card>\n").render();
+},{"./css/main.css":"css/main.css","./components/HelloWorld.wc.js":"components/HelloWorld.wc.js","./components/Card.wc.js":"components/Card.wc.js","./components/NavBar.wc.js":"components/NavBar.wc.js"}],"C:/Users/001416358/AppData/Roaming/npm/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -489,7 +508,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42853" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "34338" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
@@ -631,5 +650,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.parcelRequire, id);
   });
 }
-},{}]},{},["../../../../usr/local/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.ts"], null)
+},{}]},{},["C:/Users/001416358/AppData/Roaming/npm/node_modules/parcel/src/builtins/hmr-runtime.js","index.ts"], null)
 //# sourceMappingURL=/blueberry-vanilla.77de5100.map
