@@ -5,8 +5,6 @@
 //
 // anything defined in a previous bundle is accessed via the
 // orig method which is the require for previous bundles
-
-// eslint-disable-next-line no-global-assign
 parcelRequire = (function (modules, cache, entry, globalName) {
   // Save the require from previous bundle to this closure if any
   var previousRequire = typeof parcelRequire === 'function' && parcelRequire;
@@ -77,8 +75,16 @@ parcelRequire = (function (modules, cache, entry, globalName) {
     }, {}];
   };
 
+  var error;
   for (var i = 0; i < entry.length; i++) {
-    newRequire(entry[i]);
+    try {
+      newRequire(entry[i]);
+    } catch (e) {
+      // Save first error but execute all entries
+      if (!error) {
+        error = e;
+      }
+    }
   }
 
   if (entry.length) {
@@ -103,8 +109,15 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   // Override the current require with this new one
+  parcelRequire = newRequire;
+
+  if (error) {
+    // throw error from earlier, _after updating parcelRequire_
+    throw error;
+  }
+
   return newRequire;
-})({"C:/Users/001416358/AppData/Roaming/npm/node_modules/parcel/src/builtins/bundle-url.js":[function(require,module,exports) {
+})({"node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
 var bundleURL = null;
 
 function getBundleURLCached() {
@@ -120,7 +133,7 @@ function getBundleURL() {
   try {
     throw new Error();
   } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp):\/\/[^)\n]+/g);
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
 
     if (matches) {
       return getBaseURL(matches[0]);
@@ -131,12 +144,12 @@ function getBundleURL() {
 }
 
 function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp):\/\/.+)\/[^/]+$/, '$1') + '/';
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
 }
 
 exports.getBundleURL = getBundleURLCached;
 exports.getBaseURL = getBaseURL;
-},{}],"C:/Users/001416358/AppData/Roaming/npm/node_modules/parcel/src/builtins/css-loader.js":[function(require,module,exports) {
+},{}],"node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
 var bundle = require('./bundle-url');
 
 function updateLink(link) {
@@ -171,12 +184,12 @@ function reloadCSS() {
 }
 
 module.exports = reloadCSS;
-},{"./bundle-url":"C:/Users/001416358/AppData/Roaming/npm/node_modules/parcel/src/builtins/bundle-url.js"}],"css/main.css":[function(require,module,exports) {
+},{"./bundle-url":"node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"css/main.css":[function(require,module,exports) {
 var reloadCSS = require('_css_loader');
 
 module.hot.dispose(reloadCSS);
 module.hot.accept(reloadCSS);
-},{"_css_loader":"C:/Users/001416358/AppData/Roaming/npm/node_modules/parcel/src/builtins/css-loader.js"}],"src/components/HelloWorld.wc.js":[function(require,module,exports) {
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"src/components/HelloWorld.wc.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -450,7 +463,7 @@ function (_Component) {
 
 var _default = NavBar;
 exports.default = _default;
-},{"../lib/Component":"src/lib/Component.js"}],"src/components/Router/Router.wc.js":[function(require,module,exports) {
+},{"../lib/Component":"src/lib/Component.js"}],"src/lib/WC.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -458,7 +471,132 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _Component2 = _interopRequireDefault(require("../../lib/Component"));
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _wrapNativeSuper(Class) { var _cache = typeof Map === "function" ? new Map() : undefined; _wrapNativeSuper = function _wrapNativeSuper(Class) { if (Class === null || !_isNativeFunction(Class)) return Class; if (typeof Class !== "function") { throw new TypeError("Super expression must either be null or a function"); } if (typeof _cache !== "undefined") { if (_cache.has(Class)) return _cache.get(Class); _cache.set(Class, Wrapper); } function Wrapper() { return _construct(Class, arguments, _getPrototypeOf(this).constructor); } Wrapper.prototype = Object.create(Class.prototype, { constructor: { value: Wrapper, enumerable: false, writable: true, configurable: true } }); return _setPrototypeOf(Wrapper, Class); }; return _wrapNativeSuper(Class); }
+
+function isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Date.prototype.toString.call(Reflect.construct(Date, [], function () {})); return true; } catch (e) { return false; } }
+
+function _construct(Parent, args, Class) { if (isNativeReflectConstruct()) { _construct = Reflect.construct; } else { _construct = function _construct(Parent, args, Class) { var a = [null]; a.push.apply(a, args); var Constructor = Function.bind.apply(Parent, a); var instance = new Constructor(); if (Class) _setPrototypeOf(instance, Class.prototype); return instance; }; } return _construct.apply(null, arguments); }
+
+function _isNativeFunction(fn) { return Function.toString.call(fn).indexOf("[native code]") !== -1; }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+var WC =
+/*#__PURE__*/
+function (_HTMLElement) {
+  _inherits(WC, _HTMLElement);
+
+  function WC() {
+    var _this;
+
+    _classCallCheck(this, WC);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(WC).call(this)); //This is the shadow root, where you append everything
+
+    _this.attachShadow({
+      mode: 'open'
+    }); // Initalize the css
+
+
+    _this._css = ""; // This is the `wrapper` or container for the Component
+
+    _this.ctx = document.createElement('template');
+    _this.styleCtx = document.createElement('style'); //this.context.classList.add('root');
+
+    var parseCSS = function parseCSS(css) {
+      var regex = /(\w+[-]?\w+)(?:[:][\s]?)([aA-zZ0-9\-()\s]+)(?:[;])/g;
+      var styles = {};
+      var m;
+
+      while ((m = regex.exec(css)) !== null) {
+        m.shift();
+
+        var _ref = _toConsumableArray(m),
+            key = _ref[0],
+            val = _ref[1];
+
+        Object.assign(styles, _defineProperty({}, key, val)); // This is necessary to avoid infinite loops with zero-width matches
+
+        if (m.index === regex.lastIndex) regex.lastIndex++; // The result can be accessed through the `m`-variable.
+      }
+
+      return styles;
+    };
+
+    _this.styled = function (t) {
+      var v = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+      t.forEach(function (s, i) {
+        _this.css += s + (v[i] || '');
+      });
+      Object.assign(_this.style, parseCSS(_this.css));
+    };
+
+    return _this;
+  }
+
+  _createClass(WC, [{
+    key: "connectedCallback",
+    value: function connectedCallback() {
+      //this.styleCtx.textContent = this.style() || '';
+      //this.style
+      //this.shadowRoot.appendChild(this.styleCtx);
+      this.ctx.innerHTML = this.render();
+      console.log(this.render());
+      this.shadowRoot.appendChild(document.importNode(this.ctx.content, true));
+    }
+  }, {
+    key: "render",
+    value: function render() {}
+  }, {
+    key: "css",
+    set: function set(v) {
+      this._css = v.replace(/([\\][n])?([\s]+)+/g, " ");
+    },
+    get: function get() {
+      return this._css;
+    }
+  }]);
+
+  return WC;
+}(_wrapNativeSuper(HTMLElement));
+
+var _default = WC;
+exports.default = _default;
+},{}],"src/components/Router/Router.wc.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _WC = _interopRequireDefault(require("../../lib/WC"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -488,19 +626,101 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Router).call(this));
 
-    _this.css();
+    _this.render = function () {
+      return routes[window.location.pathname];
+    };
 
-    _this.render(routes[window.location.pathname]);
-
+    console.log(routes[window.location.pathname]);
     return _this;
   }
 
   return Router;
-}(_Component2.default);
+}(_WC.default);
 
 var _default = Router;
 exports.default = _default;
-},{"../../lib/Component":"src/lib/Component.js"}],"src/pages/Home.js":[function(require,module,exports) {
+},{"../../lib/WC":"src/lib/WC.js"}],"src/components/Test.wc.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _WC2 = _interopRequireDefault(require("../lib/WC"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n            color: blue;\n            background: ghostwhite;\n            border: 1px solid black;\n        "]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var _default =
+/*#__PURE__*/
+function (_WC) {
+  _inherits(_default, _WC);
+
+  function _default() {
+    var _this;
+
+    _classCallCheck(this, _default);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(_default).call(this));
+
+    _this.styled(_templateObject());
+
+    return _this;
+  }
+
+  _createClass(_default, [{
+    key: "attributeChangedCallback",
+    value: function attributeChangedCallback(name, old, change) {
+      console.log(old, change);
+      this.innerText = change;
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return "\n            Hello <slot></slot>\n        ";
+    }
+  }], [{
+    key: "observedAttributes",
+    get: function get() {
+      return ['name'];
+    }
+  }]);
+
+  return _default;
+}(_WC2.default);
+
+exports.default = _default;
+},{"../lib/WC":"src/lib/WC.js"}],"src/pages/Home.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -540,7 +760,7 @@ function (_Component) {
 
     _this.css("\n        .flex{\n            display: flex;\n            justify-content: center;\n        }\n        ");
 
-    _this.render("\n        <div class='flex'>\n            <h1>Hello there, my name is Ian Fabs</h1>\n        </div>\n        ");
+    _this.render("\n        <div class='flex'>\n            <h1>Hello there, my name is Ian Fabs</h1>\n            <blue-test name=Ian></blue-test>\n        </div>\n        ");
 
     return _this;
   }
@@ -644,7 +864,9 @@ var Card_wc_js_1 = __importDefault(require("./src/components/Card.wc.js"));
 
 var NavBar_wc_js_1 = __importDefault(require("./src/components/NavBar.wc.js"));
 
-var Router_wc_js_1 = __importDefault(require("./src/components/Router/Router.wc.js")); //Pages
+var Router_wc_js_1 = __importDefault(require("./src/components/Router/Router.wc.js"));
+
+var Test_wc_1 = __importDefault(require("./src/components/Test.wc")); //Pages
 
 
 var pages_1 = require("./src/pages"); //Globals
@@ -674,6 +896,7 @@ var root = function root(selector) {
 customElements.define('hello-world', HelloWorld_wc_js_1["default"]);
 customElements.define('blue-card', Card_wc_js_1["default"]);
 customElements.define('blue-nav', NavBar_wc_js_1["default"]);
+customElements.define('blue-test', Test_wc_1["default"]);
 customElements.define('blue-router', Router_wc_js_1["default"]); //define pages
 
 customElements.define('blue-page-home', pages_1.Home);
@@ -691,7 +914,7 @@ root("#app").append(new Router_wc_js_1["default"]({
   '/': "<blue-page-home></blue-page-home>",
   '/about': "<blue-page-about></blue-page-home>"
 }));
-},{"./css/main.css":"css/main.css","./src/components/HelloWorld.wc.js":"src/components/HelloWorld.wc.js","./src/components/Card.wc.js":"src/components/Card.wc.js","./src/components/NavBar.wc.js":"src/components/NavBar.wc.js","./src/components/Router/Router.wc.js":"src/components/Router/Router.wc.js","./src/pages":"src/pages/index.js"}],"C:/Users/001416358/AppData/Roaming/npm/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./css/main.css":"css/main.css","./src/components/HelloWorld.wc.js":"src/components/HelloWorld.wc.js","./src/components/Card.wc.js":"src/components/Card.wc.js","./src/components/NavBar.wc.js":"src/components/NavBar.wc.js","./src/components/Router/Router.wc.js":"src/components/Router/Router.wc.js","./src/components/Test.wc":"src/components/Test.wc.js","./src/pages":"src/pages/index.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -713,26 +936,46 @@ function Module(moduleName) {
 }
 
 module.bundle.Module = Module;
+var checkedAssets, assetsToAccept;
 var parent = module.bundle.parent;
 
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "34338" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56568" + '/');
 
   ws.onmessage = function (event) {
+    checkedAssets = {};
+    assetsToAccept = [];
     var data = JSON.parse(event.data);
 
     if (data.type === 'update') {
-      console.clear();
-      data.assets.forEach(function (asset) {
-        hmrApply(global.parcelRequire, asset);
-      });
+      var handled = false;
       data.assets.forEach(function (asset) {
         if (!asset.isNew) {
-          hmrAccept(global.parcelRequire, asset.id);
+          var didAccept = hmrAcceptCheck(global.parcelRequire, asset.id);
+
+          if (didAccept) {
+            handled = true;
+          }
         }
+      }); // Enable HMR for CSS by default.
+
+      handled = handled || data.assets.every(function (asset) {
+        return asset.type === 'css' && asset.generated.js;
       });
+
+      if (handled) {
+        console.clear();
+        data.assets.forEach(function (asset) {
+          hmrApply(global.parcelRequire, asset);
+        });
+        assetsToAccept.forEach(function (v) {
+          hmrAcceptRun(v[0], v[1]);
+        });
+      } else {
+        window.location.reload();
+      }
     }
 
     if (data.type === 'reload') {
@@ -820,7 +1063,7 @@ function hmrApply(bundle, asset) {
   }
 }
 
-function hmrAccept(bundle, id) {
+function hmrAcceptCheck(bundle, id) {
   var modules = bundle.modules;
 
   if (!modules) {
@@ -828,9 +1071,27 @@ function hmrAccept(bundle, id) {
   }
 
   if (!modules[id] && bundle.parent) {
-    return hmrAccept(bundle.parent, id);
+    return hmrAcceptCheck(bundle.parent, id);
   }
 
+  if (checkedAssets[id]) {
+    return;
+  }
+
+  checkedAssets[id] = true;
+  var cached = bundle.cache[id];
+  assetsToAccept.push([bundle, id]);
+
+  if (cached && cached.hot && cached.hot._acceptCallbacks.length) {
+    return true;
+  }
+
+  return getParents(global.parcelRequire, id).some(function (id) {
+    return hmrAcceptCheck(global.parcelRequire, id);
+  });
+}
+
+function hmrAcceptRun(bundle, id) {
   var cached = bundle.cache[id];
   bundle.hotData = {};
 
@@ -855,10 +1116,6 @@ function hmrAccept(bundle, id) {
 
     return true;
   }
-
-  return getParents(global.parcelRequire, id).some(function (id) {
-    return hmrAccept(global.parcelRequire, id);
-  });
 }
-},{}]},{},["C:/Users/001416358/AppData/Roaming/npm/node_modules/parcel/src/builtins/hmr-runtime.js","index.ts"], null)
-//# sourceMappingURL=/blueberry-vanilla.77de5100.map
+},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.ts"], null)
+//# sourceMappingURL=/blueberry-vanilla.77de5100.js.map
