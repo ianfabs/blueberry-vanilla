@@ -1,12 +1,10 @@
-import Component from "../../lib/Component";
+import Component from "../../lib/WC";
 
 class Router extends Component{
     constructor(routes){
         super();
-
-        this.css();
-
-        this.render(routes[window.location.pathname]);
+        this.render = () => routes[window.location.pathname]
+        console.log(routes[window.location.pathname])
     }
 }
 
