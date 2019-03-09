@@ -7,6 +7,7 @@ import HelloWorld from './src/components/HelloWorld.wc.js';
 import Card from './src/components/Card.wc.js';
 import NavBar from './src/components/NavBar.wc.js';
 import Router from './src/components/Router/Router.wc.js';
+import Test from './src/components/Test.wc';
 
 //Pages
 import { Home, About } from "./src/pages";
@@ -32,6 +33,7 @@ const root = (selector) => {
 customElements.define('hello-world', HelloWorld);
 customElements.define('blue-card', Card);
 customElements.define('blue-nav', NavBar);
+customElements.define('blue-test', Test);
 customElements.define('blue-router', Router);
 //define pages
 customElements.define('blue-page-home', Home);
