@@ -14,6 +14,7 @@ class Home extends Component{
         this.render(`
         <div class='flex'>
             <h1>Hello there, my name is Ian Fabs</h1>
+            <blue-test name=Ian></blue-test>
         </div>
         `);
     }
