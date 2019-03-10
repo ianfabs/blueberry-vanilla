@@ -1,22 +1,27 @@
-import Component from "../lib/Component";
+import Component, {JSXRenderer} from "../lib/WC";
+
+const Welcome = <h1>Hello there, my name is Ian Fabs</h1>;
+
+Welcome.styled();
 
 class Home extends Component{
     constructor(){
         super();
 
-        this.css(`
+        /* this.css(`
         .flex{
             display: flex;
             justify-content: center;
         }
-        `);
-
-        this.render(`
-        <div class='flex'>
-            <h1>Hello there, my name is Ian Fabs</h1>
-            <blue-test name=Ian></blue-test>
-        </div>
-        `);
+        `); */
+    }
+    render() {
+        return (
+            <div>
+                {Welcome}
+                <wc-test name="Ian"></wc-test>
+            </div>
+        );
     }
 }
 
