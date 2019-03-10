@@ -47,18 +47,13 @@ export default class extends WC {
             name: this.getAttribute('name'),
             counter: 0
         }
-        console.log(this.state);
-        this.handleChange.bind(this);
+        //Event handlers need to bind!
     }
     static get observedAttributes() {
         return ['name'];
     }
     attributeChangedCallback(name, old, change) {
         this.setState({name: change});
-    }
-    handleChange(event) {
-        console.log('done');
-        this.setState({counter: this.state.counter+1})
     }
     render() {
         this.styled`
