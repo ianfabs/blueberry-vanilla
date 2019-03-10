@@ -1,5 +1,5 @@
 //Node Modules
-
+import {JSXRenderer, Register} from './src/lib/WC';
 //Stylesheets
 import './css/main.css';
 //Components/WC Defs
@@ -9,6 +9,8 @@ import NavBar from './src/components/NavBar.wc.js';
 import Router from './src/components/Router/Router.wc.js';
 import Test from './src/components/Test.wc';
 
+Register({Test});
+
 //Pages
 import { Home, About } from "./src/pages";
 
@@ -17,10 +19,10 @@ const root = (selector) => {
     const app = document.querySelector(selector);
     
     return {
-        append(el:Element){
+        append(el){
             app.appendChild(el);
         },
-        afix(el:string){
+        afix(el){
             app.innerHTML += el;
         },
         render(html = ``){
@@ -33,7 +35,7 @@ const root = (selector) => {
 customElements.define('hello-world', HelloWorld);
 customElements.define('blue-card', Card);
 customElements.define('blue-nav', NavBar);
-customElements.define('blue-test', Test);
+//customElements.define('blue-test', Test);
 customElements.define('blue-router', Router);
 //define pages
 customElements.define('blue-page-home', Home);
@@ -54,6 +56,6 @@ root("#app").render(`
     <blue-nav></blue-nav>
 `);
 root("#app").append(new Router({
-    '/' : `<blue-page-home></blue-page-home>`,
-    '/about' : `<blue-page-about></blue-page-home>`
+    '/' : <blue-page-home></blue-page-home>,
+    '/about' : <blue-page-about></blue-page-about>
 }));
